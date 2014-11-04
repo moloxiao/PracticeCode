@@ -24,12 +24,12 @@ public class BubbleBoardLogic {
 	 * @param board 棋盘信息。
 	 * @return
 	 */
-	public static int[] addBubble(int newPosition, int newType, int[] board) {
+	public static int[] addBubble(int newPosition, int newType, int[] board, boolean firstLineRetract) {
 		zeroBoard = BubbleBoardLogic.getZeroBoard();
 		zeroCount = 0;
 		board[newPosition] = newType;
 		
-		checkLine(newPosition, board);
+		checkLine(newPosition, board, firstLineRetract);
 		if(zeroCount >= 3) {
 			for(int i=0;i<BOARD_NUMBER;i++) {
 				if(zeroBoard[i] == 1) {
@@ -41,7 +41,7 @@ public class BubbleBoardLogic {
 		return board;
 	}
 	
-	public static void checkLine(int position, int[] board) {
+	public static void checkLine(int position, int[] board, final boolean firstLineRetract) {
 		if(!inBoard(position)) {
 			return;
 		}else {
@@ -51,13 +51,14 @@ public class BubbleBoardLogic {
 		
 		int x = BubbleBoardLogic.getXByPosition(position);
 		int y = BubbleBoardLogic.getYByPosition(position);
+		boolean needRetract = y%2==0?firstLineRetract:!firstLineRetract;
 		
 		// step1 : checkLeft
 		if(x > 0) {
 			int leftPosition = BubbleBoardLogic.getPositionByXAndY(x-1, y);
 			if(board[leftPosition] == board[position] &&
 					zeroBoard[leftPosition] == 0) {
-				checkLine( leftPosition, board );
+				checkLine( leftPosition, board, firstLineRetract );
 			}
 		}
 		
@@ -66,7 +67,7 @@ public class BubbleBoardLogic {
 			int rightPosition = BubbleBoardLogic.getPositionByXAndY(x+1, y);
 			if(board[rightPosition] == board[position] &&
 					zeroBoard[rightPosition] == 0) {
-				checkLine( rightPosition, board );
+				checkLine( rightPosition, board, firstLineRetract );
 			}
 		}
 		
@@ -75,36 +76,58 @@ public class BubbleBoardLogic {
 			int topPosition = BubbleBoardLogic.getPositionByXAndY(x, y-1);
 			if(board[topPosition] == board[position] &&
 					zeroBoard[topPosition] == 0) {
-				checkLine( topPosition, board );
+				checkLine( topPosition, board, firstLineRetract );
 			}
 		}
 		
 		// step4 : checkTopNext
-		if(y > 0 && x < BubbleBoardLogic.BOARD_X_NUMBER-1) {
-			int topNextPosition = BubbleBoardLogic.getPositionByXAndY(x+1, y-1);
-			if(board[topNextPosition] == board[position] &&
-					zeroBoard[topNextPosition] == 0) {
-				checkLine( topNextPosition, board );
+		if(needRetract) {
+			if(y > 0 && x < BubbleBoardLogic.BOARD_X_NUMBER-1) {
+				int topNextPosition = BubbleBoardLogic.getPositionByXAndY(x+1, y-1);
+				if(board[topNextPosition] == board[position] &&
+						zeroBoard[topNextPosition] == 0) {
+					checkLine( topNextPosition, board, firstLineRetract );
+				}
+			}
+		}else {
+			if(y > 0 && x > 0) {
+				int topNextPosition = BubbleBoardLogic.getPositionByXAndY(x-1, y-1);
+				if(board[topNextPosition] == board[position] &&
+						zeroBoard[topNextPosition] == 0) {
+					checkLine( topNextPosition, board, firstLineRetract );
+				}
 			}
 		}
+		
 		
 		// step5 : checkBottom
 		if(y < BubbleBoardLogic.BOARD_Y_NUMBER-1) {
 			int bottomPosition = BubbleBoardLogic.getPositionByXAndY(x, y+1);
 			if(board[bottomPosition] == board[position] &&
 					zeroBoard[bottomPosition] == 0) {
-				checkLine( bottomPosition, board );
+				checkLine( bottomPosition, board, firstLineRetract );
 			}
 		}
 		
 		// step6 : checkBottomNext
-		if(y < BubbleBoardLogic.BOARD_Y_NUMBER-1 && x < BubbleBoardLogic.BOARD_X_NUMBER-1) {
-			int bottomNextPosition = BubbleBoardLogic.getPositionByXAndY(x+1, y+1);
-			if(board[bottomNextPosition] == board[position] &&
-					zeroBoard[bottomNextPosition] == 0) {
-				checkLine( bottomNextPosition, board );
+		if(needRetract) {
+			if(y < BubbleBoardLogic.BOARD_Y_NUMBER-1 && x < BubbleBoardLogic.BOARD_X_NUMBER-1) {
+				int bottomNextPosition = BubbleBoardLogic.getPositionByXAndY(x+1, y+1);
+				if(board[bottomNextPosition] == board[position] &&
+						zeroBoard[bottomNextPosition] == 0) {
+					checkLine( bottomNextPosition, board, firstLineRetract );
+				}
+			}
+		}else {
+			if(y < BubbleBoardLogic.BOARD_Y_NUMBER-1 && x > 0) {
+				int bottomNextPosition = BubbleBoardLogic.getPositionByXAndY(x-1, y+1);
+				if(board[bottomNextPosition] == board[position] &&
+						zeroBoard[bottomNextPosition] == 0) {
+					checkLine( bottomNextPosition, board, firstLineRetract );
+				}
 			}
 		}
+		
 	}
 	
 	public static int getPositionByXAndY(int x, int y) {

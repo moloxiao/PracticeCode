@@ -23,7 +23,7 @@ public class TestBubbleBoardLogic {
 	private void testBubbleBoardLogic() {
 		printBoard(testBubbleBoard1, TestBubbleBoardLogic.PRINT_BOARD_FORMAT_1);
 		System.out.println("==========["+23+"]==========");
-		int[] result = BubbleBoardLogic.addBubble(23, 1, testBubbleBoard1);
+		int[] result = BubbleBoardLogic.addBubble(23, 1, testBubbleBoard1, true);
 		printBoard(result, TestBubbleBoardLogic.PRINT_BOARD_FORMAT_1);
 	}
 	
@@ -31,15 +31,15 @@ public class TestBubbleBoardLogic {
 		
 		
 		for(int i=0;i<board.length;i++) {
-			boolean lineRetract = format==1?true:false;
+			boolean lineRetract = format==PRINT_BOARD_FORMAT_1?true:false;
 			if( !((i/BubbleBoardLogic.BOARD_X_NUMBER)%2 == 0) ) {
 				lineRetract = !lineRetract;
 			}
 			String buffer;
 			if(lineRetract) {
-				buffer = i%10==0?""+board[i]:" "+board[i];
-			}else {
 				buffer = i%10==0?" "+board[i]:" "+board[i];
+			}else {
+				buffer = i%10==0?""+board[i]:" "+board[i];
 			}
 			
 			
