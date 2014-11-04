@@ -1,6 +1,6 @@
-package com.mololovecode.practice.game.algorithm.test;
+package com.mololovecode.practice.game.algorithm.bubble.test;
 
-import com.mololovecode.practice.game.algorithm.BubbleBoardLogic;
+import com.mololovecode.practice.game.algorithm.bubble.BubbleBoardLogic;
 
 public class TestBubbleBoardLogic {
 
@@ -22,6 +22,9 @@ public class TestBubbleBoardLogic {
 	
 	private void testBubbleBoardLogic() {
 		printBoard(testBubbleBoard1, TestBubbleBoardLogic.PRINT_BOARD_FORMAT_1);
+		System.out.println("==========["+23+"]==========");
+		int[] result = BubbleBoardLogic.addBubble(23, 1, testBubbleBoard1);
+		printBoard(result, TestBubbleBoardLogic.PRINT_BOARD_FORMAT_1);
 	}
 	
 	private static void printBoard(int[] board, int format) {
