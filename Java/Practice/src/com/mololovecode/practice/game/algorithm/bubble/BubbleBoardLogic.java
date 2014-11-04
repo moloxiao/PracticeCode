@@ -10,8 +10,8 @@ package com.mololovecode.practice.game.algorithm.bubble;
 public class BubbleBoardLogic {
 	
 	public static final int BOARD_X_NUMBER = 10;
-	public static final int BOARD_Y_NUMBER = 10;
-	public static final int BOARD_NUMBER = 100;
+	public static final int BOARD_Y_NUMBER = 14;
+	public static final int BOARD_NUMBER = BOARD_X_NUMBER*BOARD_Y_NUMBER;
 
 	private static int[] zeroBoard;
 	private static int zeroCount;
@@ -275,6 +275,10 @@ public class BubbleBoardLogic {
 	
 	private static int[] getZeroBoard() {
 		int[] zeroBoard = {
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
