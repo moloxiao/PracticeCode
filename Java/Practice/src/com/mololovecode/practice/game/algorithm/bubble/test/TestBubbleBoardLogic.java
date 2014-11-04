@@ -52,6 +52,28 @@ public class TestBubbleBoardLogic {
 		
 	}
 	
+	/**
+	 * 检查两个棋盘是否相同。
+	 * @param board1
+	 * @param board2
+	 * @return
+	 */
+	public static boolean boardIsSame(int[] board1, int[] board2) {
+		if(board1 == null || board2 == null) {
+			return false;
+		}
+		if(board1.length != board2.length) {
+			return false;
+		}
+		for(int i=0;i<board1.length;i++) {
+			if(board1[i] != board2[i]) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
 	public static int[] testBubbleBoard1 =  {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
